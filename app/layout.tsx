@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Dosis, Inter, Roboto } from 'next/font/google'
+import { Dosis, Inter } from 'next/font/google'
 
 const dosis = Dosis({ subsets: ['latin'], variable: "--font-dosis" })
 const inter = Inter({ subsets: ['latin'], variable: "--font-inter" })

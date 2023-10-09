@@ -1,3 +1,5 @@
+import DayState from "@/components/DayState";
+import Link from "next/link";
 import { CgTrash } from "react-icons/cg";
 
 export default function Home() {
@@ -18,7 +20,9 @@ export default function Home() {
     }
   };
 
+  const todayWeekday = new Date().getDay()
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const sortedWeekDays = weekDays.slice(todayWeekday + 1).concat(weekDays.slice(0, todayWeekday + 1))
 
   return (
     <main className="container relative flex flex-col gap-8 px-4 pt-16">
@@ -31,20 +35,23 @@ export default function Home() {
         <div key={habit}>
           <section className="flex justify-between items-center">
             <span className="text-xl text-white font-light font-sans">{habit}</span>
-            <button className="text-2xl text-red-500"><CgTrash/></button>
+            <button className="text-2xl text-red-500"><CgTrash alt="trash can"/></button>
           </section>
           <section className="grid grid-cols-7 bg-neutral-700 rounded-md p-2">
-            {weekDays.map((day)=>(
-              <div className="flex flex-col" key={day}>
+            {sortedWeekDays.map((day)=>(
+              <div className="flex flex-col text-center last:font-bold" key={day}>
                 <span className="font-sans text-xs text-white" >{day}</span>
-                </div>
+                <DayState done={undefined} />
+              </div>
             ))}
-            
           </section>
-            {/* {JSON.stringify(dateStreak)} */}
         </div>
       )
       )}
+
+      <Link href="new-habit" 
+      className="fixed text-center bottom-10 w-2/3 left-1/2 p-2 -translate-x-1/2 text-neutral-800 bg-teal-500 font-regular text-2xl font-display rounded-md">
+        Add a habit</Link>
     </main>
   )
 }
