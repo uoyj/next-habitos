@@ -47,7 +47,7 @@ export default function Calendar({habit, streak}: CalendarProptype) {
     }
 
     function getDateString(date: Date){
-        return `${year.toString()}-${(month + 1).toString().padStart(2,"0")}-${date.getDate().toString()}`
+        return `${year.toString()}-${(month + 1).toString().padStart(2,"0")}-${date.getDate().toString().padStart(2,"0")}`
     }
 
   return (
