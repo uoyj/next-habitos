@@ -3,6 +3,7 @@ import { weekDays, getDaysInMonth } from "@/services/calendar"
 import { useEffect, useState } from "react";
 import { CgArrowLeft, CgArrowRight } from "react-icons/cg";
 import DayState from "./DayState";
+import { toggleHabit } from "@/services/actions";
 
 const currentDate = new Date()
 const currentDay = currentDate.getDate()
@@ -67,7 +68,9 @@ export default function Calendar({habit, streak}: CalendarProptype) {
             </div>
           ))}
           {daysInMonth.map( (day, index) => (
-            <div key={index} className="flex flex-col items-center p-2">
+            <div key={index} className="flex flex-col items-center p-2" onClick={() => day && toggleHabit(
+                {habit, habitStreak: streak, date: getDateString(day), done: streak ? streak[getDateString(day)] : true }
+            )}>
               <span className="font-sans text-xs font-light text-neutral-400">
                 {day?.getDate()}
               </span>

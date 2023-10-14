@@ -1,10 +1,9 @@
 import DayState from "@/components/DayState"
+import DeleteButton from "@/components/DeleteButton"
 import { weekDays } from "@/services/calendar"
 import { Habit } from "@/services/commons"
 import { kv } from "@vercel/kv"
 import Link from "next/link"
-import { CgTrash } from "react-icons/cg"
-
 
 export default async function Home() {
   const habits: Habit = await kv.hgetall("habits")
@@ -37,9 +36,7 @@ export default async function Home() {
               <span className="text-xl text-white font-light font-sans">
                 {habit}
               </span>
-              <button className="text-2xl text-red-500">
-                <CgTrash alt="trash can" />
-              </button>
+              <DeleteButton habit={habit}/>
             </section>
             <Link href={`habit/${habit}`}>
               <section className="grid grid-cols-7 bg-neutral-700 rounded-md p-2">
