@@ -2,13 +2,19 @@
 import { weekDays, getDaysInMonth } from "@/services/calendar"
 import { useEffect, useState } from "react";
 import { CgArrowLeft, CgArrowRight } from "react-icons/cg";
+import DayState from "./DayState";
 
 const currentDate = new Date()
 const currentDay = currentDate.getDate()
 const currentMonth = currentDate.getMonth()
 const currentYear = currentDate.getFullYear()
 
-export default function Calendar() {
+interface CalendarProptype{
+    habit: string,
+    streak: Record<string, boolean> | null
+}
+
+export default function Calendar({habit, streak}: CalendarProptype) {
     const [userSelectedDate, setUserSelectedDate] = useState(new Date)
     const [month, setMonth] = useState(currentMonth)
     const [year, setYear] = useState(currentYear)
@@ -39,6 +45,10 @@ export default function Calendar() {
         return `${userSelectedDate.toLocaleString("en-US", {month: "long"})}`
     }
 
+    function getDateString(date: Date){
+        return `${year.toString()}-${(month + 1).toString().padStart(2,"0")}-${date.getDate().toString()}`
+    }
+
   return (
     <section className="w-full my-2 rounded-md bg-neutral-800">
         <div className="flex justify-between mx-2 my-4 font-sans text-neutral-400">
@@ -61,6 +71,11 @@ export default function Calendar() {
               <span className="font-sans text-xs font-light text-neutral-400">
                 {day?.getDate()}
               </span>
+              {
+                day && (
+                    <DayState done={streak ? streak[getDateString(day)] : undefined} />
+                )
+              }
             </div>
           ))}
         </div>

@@ -9,7 +9,7 @@ interface HabitProptype {
 
 export default async function Habit({ params: { habit } }: HabitProptype) {
   const decodedHabit = decodeURI(habit)
-  const habitStreak = await kv.hget("habits", decodedHabit)
+  const habitStreak = await kv.hget<Record<string,boolean>>("habits", decodedHabit)
 
   return (
     <main className="container relative flex flex-col gap-8 px-12 pt-16">
@@ -25,7 +25,7 @@ export default async function Habit({ params: { habit } }: HabitProptype) {
         Back
       </Link>
 
-      <Calendar />
+      <Calendar habit={decodedHabit} streak={habitStreak}/>
       
     </main>
   )

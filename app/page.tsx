@@ -1,12 +1,10 @@
 import DayState from "@/components/DayState"
 import { weekDays } from "@/services/calendar"
+import { Habit } from "@/services/commons"
 import { kv } from "@vercel/kv"
 import Link from "next/link"
 import { CgTrash } from "react-icons/cg"
 
-type Habit = {
-  [habit: string]: Record<string, boolean>
-} | null
 
 export default async function Home() {
   const habits: Habit = await kv.hgetall("habits")
